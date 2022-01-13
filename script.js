@@ -3,27 +3,50 @@ $(document).ready(function () {
 
   const m = moment();
 
-  $("#currentDay").text(m.format("dddd MMMM do YYYY")); //set current day
+  $("#currentDay").text(m.format("dddd MMMM DD YYYY")); //set current day
 
-  $(".saveBtn").on("click", function () {
-    //grab text entered
-    var description = $(this).siblings(".description").val();
-    //grab the time it belongs
-    var time = $(this).parent().attr("id");
-    //save to local storage
-    localStorage.setItem(time, description);
-  });
-
-  hrUpdate();
-
-  function hrUpdate() {
-    //get hour from moment
-    //set it to the text
-    //use if else to compare current hour with ids
-    //add relevant class names
-    // allocate color based on current time
+  //loop to display 9am-5pm
+  for (var i = 9; i <= 17; i++) {
+    // Creation of the row elements
+    row = $(`<div class="row">`);
+    col1 = $(`<div class ="col-lg-2 hour">${displayAmorPm(i)}</div>`);
+    col2 = $(
+      `<div class ="col-lg-8 inputcontent"><input data-input="${i}" id="inputText${i}" class="form-control inputText" type="text" name="userInput"></div>`
+    );
+    col3 = $(
+      `<div class ="col-lg-2"><button data-id="${i}" id="savePlanner" class="btn saveBtn btn-success btn-block"><i class="fas fa-save"></i> Save</button></div>`
+    );
+    row.append(col1);
+    row.append(col2);
+    row.append(col3);
+    $("#display-planner").append(row);
+    getlocalStorage(i);
   }
 
-  //retrieve local storage text for each blocks
-  //8 get items from local storage for each time block
+  $(".saveBtn").click(function (e) {
+    //grab text entered
+    var id = $(this).data("id");
+    var inputText = $(this).parent().siblings().find("input").val(); //grab the time it belongs
+    localStorage.setItem(id, inputText); //save to local storage
+  });
+  //  Convert Am to Pm
+  function displayAmorPm(hour) {
+    var b = "";
+    if (hour <= 12) {
+      b = "AM";
+    } else {
+      b = "PM";
+    }
+    hour = hour % 12;
+    hour = hour ? hour : 12;
+    return hour + " " + b;
+  }
+
+  function getlocalStorage(hour) {
+    let inputval = localStorage.getItem(hour);
+    if (true) {
+      var text = $(`input#inputText${hour}`).val(inputval);
+      console.log(text);
+    }
+  }
 });
