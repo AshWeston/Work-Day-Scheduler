@@ -49,4 +49,20 @@ $(document).ready(function () {
       console.log(text);
     }
   }
+
+  function changeColour() {
+    var hour = new Date().getHours(); //return hour for specified date
+    for (var i = 9; i <= 18; i++) {
+      console.log(hour, i);
+      if (hour == i) {
+        $(`#inputText${i}`).addClass("present"); ///add classes for past, present and future from css
+      } else if (hour > i) {
+        $(`#inputText${i}`).addClass("past");
+      } else if (hour < i) {
+        $(`#inputText${i}`).addClass("future");
+      }
+    }
+  }
+
+  changeColour();
 });
