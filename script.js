@@ -5,8 +5,8 @@ $(document).ready(function () {
 
   $("#currentDay").text(m.format("dddd MMMM DD YYYY")); //set current day
 
-  //loop to display 9am-5pm
-  for (var i = 9; i <= 17; i++) {
+  //loop to display 9am-8pm
+  for (var i = 9; i <= 20; i++) {
     // Creation of the row elements
     row = $(`<div class="row">`);
     col1 = $(`<div class ="col-lg-2 hour">${displayAmorPm(i)}</div>`);
@@ -52,7 +52,7 @@ $(document).ready(function () {
 
   function changeColour() {
     var hour = new Date().getHours(); //return hour for specified date
-    for (var i = 9; i <= 18; i++) {
+    for (var i = 9; i <= 20; i++) {
       console.log(hour, i);
       if (hour == i) {
         $(`#inputText${i}`).addClass("present"); ///add classes for past, present and future from css
